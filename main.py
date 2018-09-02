@@ -120,6 +120,8 @@ def main():
     #  Run for T timesteps N times for all algorithms    #
     # -------------------------------------------------- #
 
+    print('Running {} algorithms... \n'.format(config.N_ALGS))
+
     for a in range(config.N_ALGS):
 
         alg_name = config.ALGORITHMS[a]
@@ -189,40 +191,32 @@ def main():
 
             if config.SAVE_CHECKPOINTS:
 
-                print('Saving checkpoint... \n')
+                if (config.SAVE_AT_END and n == N - 1) or not config.SAVE_AT_END:
 
-                # np.save(os.path.join(save_path, 'checkpoint', 'N = ' + str(n) + '_PProb_' + config.ALGORITHMS[a] + '_' + stamp), Prob)
-                # np.save(os.path.join(save_path, 'checkpoint', 'N = ' + str(n) + '_Regret_' + config.ALGORITHMS[a] + '_' + stamp), Regret)
-                # np.save(os.path.join(save_path, 'checkpoint', 'N = ' + str(n) + '_CumRegret_' + config.ALGORITHMS[a] + '_' + stamp), CumRegret)
-                # np.save(os.path.join(save_path, 'checkpoint', 'N = ' + str(n) + '_Accuracy_' + config.ALGORITHMS[a] + '_' + stamp), AveragePayoutAccuracy)
-                #
-                # np.save(os.path.join(save_path, 'checkpoint', 'AVE_N = ' + str(n) + '_PProb_' + config.ALGORITHMS[a] + '_' + stamp), ProbSum[a, :] / (n + 1))
-                # np.save(os.path.join(save_path, 'checkpoint', 'AVE_N = ' + str(n) + '_Regret_' + config.ALGORITHMS[a] + '_' + stamp), RegretSum[a, :] / (n + 1))
-                # np.save(os.path.join(save_path, 'checkpoint', 'AVE_N = ' + str(n) + '_CumRegret_' + config.ALGORITHMS[a] + '_' + stamp), CumRegretSum[a, :] / (n + 1))
-                # np.save(os.path.join(save_path, 'checkpoint', 'AVE_N = ' + str(n) + '_Accuracy_' + config.ALGORITHMS[a] + '_' + stamp), AccuracySum[a, :] / (n + 1))
+                    print('Saving checkpoint... \n')
 
-                folder = './' + save_path + '/' + config.MODE + '/'
-                np.save(folder + stamp + '_' + config.ALGORITHMS[a] + '_AVE_N=' + str(n) + '_PProb' , ProbSum[a, :] / (n + 1))
-                np.save(folder + stamp + '_' + config.ALGORITHMS[a] + '_AVE_N=' + str(n) + '_Regret', RegretSum[a, :] / (n + 1))
-                np.save(folder + stamp + '_' + config.ALGORITHMS[a] + '_AVE_N=' + str(n) + '_CumRegret', CumRegretSum[a, :] / (n + 1))
-                np.save(folder + stamp + '_' + config.ALGORITHMS[a] + '_AVE_N=' + str(n) + '_Accuracy', AccuracySum[a, :] / (n + 1))
+                    folder = './' + save_path + '/' + config.MODE + '/'
+                    np.save(folder + stamp + '_N=' + str(n) + '_AVE_PProb' + '_' + config.ALGORITHMS[a], ProbSum[a, :] / (n + 1))
+                    np.save(folder + stamp + '_N=' + str(n) + '_AVE_Regret' + '_' + config.ALGORITHMS[a], RegretSum[a, :] / (n + 1))
+                    np.save(folder + stamp + '_N=' + str(n) + '_AVE_CumRegret' + '_' + config.ALGORITHMS[a], CumRegretSum[a, :] / (n + 1))
+                    np.save(folder + stamp + '_N=' + str(n) + '_AVE_Accuracy' + '_' + config.ALGORITHMS[a], AccuracySum[a, :] / (n + 1))
 
-                if n >= 1:
-                    STD_PProb = np.std(Prob_log[:(n + 1)], axis=0, ddof=1)  # Sample std
-                    STD_Regret = np.std(Regret_log[:(n + 1)], axis=0, ddof=1)  # Sample std
-                    STD_CumRegret = np.std(CumRegret_log[:(n + 1)], axis=0, ddof=1)  # Sample std
-                    STD_Accuracy = np.std(Accuracy_log[:(n + 1)], axis=0, ddof=1)  # Sample std
+                    if n >= 1:
+                        STD_PProb = np.std(Prob_log[:(n + 1)], axis=0, ddof=1)  # Sample std
+                        STD_Regret = np.std(Regret_log[:(n + 1)], axis=0, ddof=1)  # Sample std
+                        STD_CumRegret = np.std(CumRegret_log[:(n + 1)], axis=0, ddof=1)  # Sample std
+                        STD_Accuracy = np.std(Accuracy_log[:(n + 1)], axis=0, ddof=1)  # Sample std
 
-                    np.save(folder + stamp + '_' + config.ALGORITHMS[a] + '_STD_N=' + str(n) + '_PProb' , STD_PProb)
-                    np.save(folder + stamp + '_' + config.ALGORITHMS[a] + '_STD_N=' + str(n) + '_Regret', STD_Regret)
-                    np.save(folder + stamp + '_' + config.ALGORITHMS[a] + '_STD_N=' + str(n) + '_CumRegret', STD_CumRegret)
-                    np.save(folder + stamp + '_' + config.ALGORITHMS[a] + '_STD_N=' + str(n) + '_Accuracy', STD_Accuracy)
+                        np.save(folder + stamp + '_N=' + str(n) + '_STD_PProb' + '_' + config.ALGORITHMS[a], STD_PProb)
+                        np.save(folder + stamp + '_N=' + str(n) + '_STD_Regret' + '_' + config.ALGORITHMS[a], STD_Regret)
+                        np.save(folder + stamp + '_N=' + str(n) + '_STD_CumRegret' + '_' + config.ALGORITHMS[a], STD_CumRegret)
+                        np.save(folder + stamp + '_N=' + str(n) + '_STD_Accuracy' + '_' + config.ALGORITHMS[a], STD_Accuracy)
 
         # --------------------------------------- #
         #  Save results to plot                   #
         # --------------------------------------- #
 
-        if config.SAVE_ALL_AT_END:
+        if 1 == 0:
 
             # Get Index of best and worst runs
             for n in range(N):
@@ -321,44 +315,50 @@ def main():
         if config.PLOT:
 
             ax1 = plt.subplot(321)
+            PProb = ProbSum[a, :] / N
             ax1.plot(smooth(PProb), label=config.ALGORITHMS[a])
             # ax1.set_yticks(np.arange(0, 1., 0.1))
             # ax1.set_xticks(np.arange(0, T, 50))
             ax1.grid()
 
             ax2 = plt.subplot(322)
+            CumPProb = CumProbSum[a, :] / N
             ax2.plot(smooth(CumPProb), label=config.ALGORITHMS[a])
             #ax2.set_yticks(np.arange(0, 100., 20))
             #ax2.set_xticks(np.arange(0, T, 50))
             ax2.grid()
 
             ax3 = plt.subplot(323)
+            Regret = RegretSum[a, :] / N
             ax3.plot(smooth(Regret), label=config.ALGORITHMS[a])
             #ax3.set_yticks(np.arange(0, 100., 20))
             #ax3.set_xticks(np.arange(0, T, 50))
             ax3.grid()
 
             ax4 = plt.subplot(324)
+            CumRegret = CumRegretSum[a, :] / N
             ax4.plot(smooth(CumRegret), label=config.ALGORITHMS[a])
             #ax4.set_yticks(np.arange(0, 100., 20))
             #ax4.set_xticks(np.arange(0, T, 50))
             ax4.grid()
 
             ax5 = plt.subplot(325)
+            Accuracy = AccuracySum[a, :] / N
             ax5.plot(smooth(Accuracy), label=config.ALGORITHMS[a])
             #ax5.set_yticks(np.arange(0, 100., 20))
             #ax5.set_xticks(np.arange(0, T, 50))
             ax5.grid()
 
             ax6 = plt.subplot(326)
+            ExpectedReward = ExpectedRewardSum[a, :] / N
             ax6.plot(smooth(ExpectedReward), label=config.ALGORITHMS[a])
             #ax6.set_yticks(np.arange(0, 100., 20))
             #ax6.set_xticks(np.arange(0, T, 50))
             ax6.grid()
 
-            plt.subplot(326)
+            #plt.subplot(326)
             #plt.fill_between(np.arange(T), smooth(ExpectedReward) - smooth(STD_ExpectedReward), smooth(ExpectedReward) + smooth(STD_ExpectedReward), color='b', alpha=0.2)
-            plt.fill_between(np.arange(T), smooth(ExpectedReward_Best), smooth(ExpectedReward_Worst), color='b', alpha=0.2)
+            #plt.fill_between(np.arange(T), smooth(ExpectedReward_Best), smooth(ExpectedReward_Worst), color='b', alpha=0.2)
 
     if config.PLOT:
         plt.subplot(321)
@@ -391,11 +391,11 @@ def main():
         plt.xlim(0, T)
         plt.legend()
 
-        plt.subplot(326)
-        plt.xlabel('t')
-        plt.ylabel('Expected Reward')
-        plt.xlim(0, T)
-        plt.legend()
+        # plt.subplot(326)
+        # plt.xlabel('t')
+        # plt.ylabel('Expected Reward')
+        # plt.xlim(0, T)
+        # plt.legend()
 
         plt.show()
 

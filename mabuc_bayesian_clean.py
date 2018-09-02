@@ -118,14 +118,19 @@ class MabucBayesianAlgorithm:
                 print("ALGORITHM:" + self.algorithm_name)
                 print('Obtaining posterior, N = {}, t = {} \n'.format(self.n, t))
                 y_post, model, trace = self.get_posterior()
-                choices = y_post[:, intent]
-                action = np.argmax(choices)
+                if config.ALL_TS:
+                    sample = config.sigmoid(trace[-1]['c'])
+                    choices = sample[:, intent]
+                    action = np.argmax(choices)
+                else:
+                    choices = y_post[:, intent]
+                    action = np.argmax(choices)
 
                 # Record and print information
                 self.exploration_count[action, intent] += 1
                 print("N = {}, Exploration count = \n {} \n".format(self.n, self.exploration_count))
                 print("N = {}, y_post = \n {} \n".format(self.n, y_post.round(3)))
-                counter = 1  # For trace
+                counter = 2  # For trace
                 latest_updated_intent_index = tt
                 tt += 1
 

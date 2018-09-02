@@ -9,24 +9,30 @@ class Config:
 
     def __init__(self):
 
-        self.MODE = 'vanilla'   # Simulate with specified payout rates
-        # self.MODE = 'ihdp'    # Simulate with IHDP data
+        self.MODE = 'vanilla'         # Simulate with specified payout rates
+        # self.MODE = 'ihdp'              # Simulate with IHDP data
 
-        self.WINDOWS = False    # Set to True if using Windows OS
+        # If vanilla:
+        self.USE_RANDOM_DATA = False        # If true, creates obs/exp data and theta for EACH N
+        self.SAVE_LIST = False             # Save random payout and data generated
+        self.USE_SAVED_RANDOM_DATA = False  # Use already saved data
 
-        self.SAVE_CHECKPOINTS = True
+        self.WINDOWS = True             # Set to True if using Windows OS
 
-        self.SAVE_DATA = True
-        self.SAVE_ALL_AT_END = False
-        self.PLOT = False
+        self.SAVE_CHECKPOINTS = True    # IMPORTANT! Set to true if you want to save data as files
+        self.SAVE_AT_END = False        # May want to set to true if doing IVWA
+
+        self.SAVE_DATA = True           # Old
+
+        self.PLOT = False               # Plot graph at the end of simulations
 
         # -----------------------------------------------#
         #  Create observational and experimental data?   #
         # -----------------------------------------------#
         # Only relevant for 'vanilla'
-        self.USE_RANDOM_DATA = True        # If true, creates obs/exp data and theta for EACH N
-        self.SAVE_LIST = False             # Save random payout and data generated
-        self.USE_SAVED_RANDOM_DATA = True  # Use already saved data
+        # self.USE_RANDOM_DATA = True        # If true, creates obs/exp data and theta for EACH N
+        # self.SAVE_LIST = False             # Save random payout and data generated
+        # self.USE_SAVED_RANDOM_DATA = True  # Use already saved data
 
         self.SIMULATE_OBS_EXP_DATA = False  # If true, creates and saves obs/exp data
         self.SAMPLES_PER_ARM = 10000        # Samples per arm for data generation
@@ -35,30 +41,16 @@ class Config:
         # -----------------------------------------------#
         #  MABUC run main settings                       #
         # -----------------------------------------------#
-        self.T = 2        # Exploration timesteps
-        self.N = 2         # MC repeats to average (if using existing I samples and this
-                            # includes multiple N, this will be multiplied by this)
+        self.T = 150      # Exploration timesteps
+        self.N = 20      # MC repeats to average (if using existing I samples and this
+                        # includes multiple N, this will be multiplied by this)
         self.USE_ORDERED_I_SAMPLES = True  # If false, I appears in order
 
         # Available:
-        # 'RDC*_edit_TS_4','RDC*_edit_NO_TS_3','RDC*_edit_TS_2'
-        # 'RDC*_edit_TS','RDC*_edit', 'RDC*_original',
-        # 'RDC*_edit_precision','RDC*_edit_precision2'
-        # 'RDC*_1', 'RDC*_2', 'RDC*_edit_', 'bayesian'
-        # 'MCMC+', 'MCMC++', 'MCMC'
-
-        # ! CAN ONLY DO IWVA & MCMC SEPARATELY !
-        # self.ALGORITHMS = ['RDC_original++', 'RDC_paper', 'RDC_paper_NO_TS']
-        # self.ALGORITHMS = ['RDC_original++', 'RDC*_2', 'RDC_paper']
-        # Not good: _edit_
-
-        # self.ALGORITHMS = ['RDC_original++', 'RDC*_edit_', 'RDC*_2']
         # self.ALGORITHMS = ['IVWA - TS++', 'IVWA - TS+', 'IVWA - TS',
-        #                    'IVWA - paper++', 'IVWA - paper+', 'IVWA - paper']
-        self.ALGORITHMS = ['MCMC++']
-        # self.ALGORITHMS = ['MCMC+']
-        # NOT GOOD for K=6: edit, edit_, RDC*_2, RDC*_1, Edit_precision, _edit_NO_TS_3,
-        # OKAY: edit_ts_4
+        #                   'IVWA - paper++', 'IVWA - paper+', 'IVWA - paper']
+        # self.ALGORITHMS = ['MCMC++']
+        # self.ALGORITHMS = ['MCMC++', 'MCMC+', 'MCMC+']
 
         # OR
 
@@ -165,14 +157,15 @@ class Config:
         #  PYMC3 BAYESIAN MABUC SETTINGS               #
         # -------------------------------------------- #
         self.USE_MODEL_WITH_CONSTRAINT = False  # Use alpha + beta + theta model
-        self.N_BATCH = 3  # Batch size for taking data from trace with each MC update of posterior
-        self.TRACE_LENGTH = 600  # Trace length for MCMC
-        self.N_MCMC_CHAINS = 2  # Chain length for MCMC
-        self.USE_PPC_SAMPLES = False  # (UNUSED) Use PPC for posterior point estimate
-        self.N_PPC_SAMPLES = 500  # (UNUSED) How many PPC samples for posterior
-        self.N_TRACE_SAMPLES = 100  # How many of last trace samples to use to get posterior
-        self.ALPHA_HYPER_GAMMA_SD = 100  # Alpha in hyperprior sd gamma(alpha, beta)
-        self.BETA_HYPER_GAMMA_SD = 10  # Beta in hyperprior sd gamma(alpha, beta)
+        self.N_BATCH = 2                    # Batch size for taking data from trace with each MC update of posterior
+        self.TRACE_LENGTH = 600             # Trace length for MCMC
+        self.N_MCMC_CHAINS = 2              # Chain length for MCMC
+        self.USE_PPC_SAMPLES = False        # (UNUSED) Use PPC for posterior point estimate
+        self.N_PPC_SAMPLES = 500            # (UNUSED) How many PPC samples for posterior
+        self.N_TRACE_SAMPLES = 100          # How many of last trace samples to use to get posterior
+        self.ALPHA_HYPER_GAMMA_SD = 100     # Alpha in hyperprior sd gamma(alpha, beta)
+        self.BETA_HYPER_GAMMA_SD = 10       # Beta in hyperprior sd gamma(alpha, beta)
+        self.ALL_TS = True                  # Thompson sample for every t
         # Been using 0.1, 0.01 / 0.01, 0.001 / 100, 10
 
         # (10, 0.1), (10, 0.001) DOESN"T EXPLORE ENOUGH AT THE BEGINNING!
@@ -227,6 +220,10 @@ class Config:
             self.T_ = 'config.T * config.N_BATCH'
         else:
             self.T_ = 'config.T'
+
+        # Do not use random data if we are using ihdp data
+        if self.MODE == 'ihdp':
+            self.USE_RANDOM_DATA = False
 
     # ---------------------------------- #
     #  Other methods                     #
