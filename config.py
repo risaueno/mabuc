@@ -17,7 +17,7 @@ class Config:
         self.SAVE_LIST = False             # Save random payout and data generated
         self.USE_SAVED_RANDOM_DATA = False  # Use already saved data
 
-        self.WINDOWS = True             # Set to True if using Windows OS
+        self.WINDOWS = False             # Set to True if using Windows OS
 
         self.SAVE_CHECKPOINTS = True    # IMPORTANT! Set to true if you want to save data as files
         self.SAVE_AT_END = False        # May want to set to true if doing IVWA
