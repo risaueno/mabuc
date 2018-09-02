@@ -50,7 +50,7 @@ class Config:
         # self.ALGORITHMS = ['IVWA - TS++', 'IVWA - TS+', 'IVWA - TS',
         #                   'IVWA - paper++', 'IVWA - paper+', 'IVWA - paper']
         # self.ALGORITHMS = ['MCMC++']
-        # self.ALGORITHMS = ['MCMC++', 'MCMC+', 'MCMC+']
+        self.ALGORITHMS = ['MCMC++', 'MCMC+', 'MCMC+']
 
         # OR
 
