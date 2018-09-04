@@ -9,8 +9,8 @@ class Config:
 
     def __init__(self):
 
-        self.MODE = 'vanilla'         # Simulate with specified payout rates
-        # self.MODE = 'ihdp'              # Simulate with IHDP data
+        # self.MODE = 'vanilla'         # Simulate with specified payout rates
+        self.MODE = 'ihdp'              # Simulate with IHDP data
 
         # If vanilla:
         self.USE_RANDOM_DATA = False        # If true, creates obs/exp data and theta for EACH N
