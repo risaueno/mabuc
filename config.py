@@ -9,8 +9,8 @@ class Config:
 
     def __init__(self):
 
-        self.MODE = 'vanilla'         # Simulate with specified payout rates
-        # self.MODE = 'ihdp'              # Simulate with IHDP data
+        # self.MODE = 'vanilla'         # Simulate with specified payout rates
+        self.MODE = 'ihdp'              # Simulate with IHDP data
 
         # If vanilla:
         self.USE_RANDOM_DATA = False        # If true, creates obs/exp data and theta for EACH N
@@ -42,7 +42,7 @@ class Config:
         #  MABUC run main settings                       #
         # -----------------------------------------------#
         self.T = 150      # Exploration timesteps
-        self.N = 20      # MC repeats to average (if using existing I samples and this
+        self.N = 10      # MC repeats to average (if using existing I samples and this
                         # includes multiple N, this will be multiplied by this)
         self.USE_ORDERED_I_SAMPLES = True  # If false, I appears in order
 
