@@ -19,6 +19,8 @@ config = Config()
 
 #%%
 
+# AUTOMATIC FROM FOLDER
+
 # TO FILL IN STD, DO THIS!
 # plt.fill_between(mstd.index, ma-2*mstd, ma+2*mstd, color='b', alpha=0.2)
 
@@ -83,8 +85,94 @@ plt.show()
 
 #%%
 
-PProb_file1 = 'IHDP_PProb_RDC*_edit__' + date + ' ' + time + '.npy'
-Regret_file1 = 'IHDP_Regret_RDC*_edit__' + date + ' ' + time + '.npy'
+# MANUAL
+
+save_dir = './data_folder/vanilla/plot/'
+# save_dir = './data_folder/ihdp/'
+
+algs = ['500-10', '100-10', '40-10', 'ivwa-paper', 'ivwa-new']
+
+str_PProb = ['2018-09-02-23-32-44_N=9_AVE_PProb_MCMC++-500-10.npy',
+'2018-09-02-22-24-08_N=16_AVE_PProb_MCMC++-100-10.npy',
+'2018-09-02-23-17-54_N=9_AVE_PProb_MCMC++-40-10.npy',
+'2018-09-02-21-38-40_N=49_AVE_PProb_IVWA - paper++.npy',
+'2018-09-02-21-38-40_N=49_AVE_PProb_IVWA - TS++.npy']
+
+str_Regret = ['2018-09-02-23-32-44_N=9_AVE_Regret_MCMC++-500-10.npy',
+'2018-09-02-22-24-08_N=16_AVE_Regret_MCMC++-100-10.npy',
+'2018-09-02-23-17-54_N=9_AVE_Regret_MCMC++-40-10.npy',
+'2018-09-02-21-38-40_N=49_AVE_Regret_IVWA - paper++.npy',
+'2018-09-02-21-38-40_N=49_AVE_Regret_IVWA - TS++.npy']
+
+str_CumRegret = ['2018-09-02-23-32-44_N=9_AVE_CumRegret_MCMC++-500-10.npy',
+'2018-09-02-22-24-08_N=16_AVE_CumRegret_MCMC++-100-10.npy',
+'2018-09-02-23-17-54_N=9_AVE_CumRegret_MCMC++-40-10.npy',
+'2018-09-02-21-38-40_N=49_AVE_CumRegret_IVWA - paper++.npy',
+'2018-09-02-21-38-40_N=49_AVE_CumRegret_IVWA - TS++.npy']
+
+str_Accuracy = ['2018-09-02-23-32-44_N=9_AVE_Accuracy_MCMC++-500-10.npy',
+'2018-09-02-22-24-08_N=16_AVE_Accuracy_MCMC++-100-10.npy',
+'2018-09-02-23-17-54_N=9_AVE_Accuracy_MCMC++-40-10.npy',
+'2018-09-02-21-38-40_N=49_AVE_Accuracy_IVWA - paper++.npy',
+'2018-09-02-21-38-40_N=49_AVE_Accuracy_IVWA - TS++.npy']
+
+#%%
+plt.figure()
+
+for i in range(len(algs)):
+
+    pprob_string = save_dir + str_PProb[i]
+    pprob = np.load(pprob_string)
+
+    regret_string = save_dir + str_Regret[i]
+    regret = np.load(regret_string)
+
+    cumregret_string = save_dir + str_CumRegret[i]
+    cumregret = np.load(cumregret_string)
+
+    accuracy_string = save_dir + str_Accuracy[i]
+    accuracy = np.load(accuracy_string)
+
+    ax = plt.subplot(221)
+    ax.plot(smooth(pprob), label=algs[i])
+
+    ax = plt.subplot(222)
+    ax.plot(smooth(regret), label=algs[i])
+
+    ax = plt.subplot(223)
+    ax.plot(smooth(cumregret), label=algs[i])
+
+    ax = plt.subplot(224)
+    ax.plot(smooth(accuracy), label=algs[i])
+
+
+plt.subplot(221)
+plt.xlabel('t')
+plt.ylabel('Probability of optimal action')
+plt.xlim(0, 300)
+
+plt.subplot(222)
+plt.xlabel('t')
+plt.ylabel('Current Regret')
+plt.xlim(0, 300)
+
+plt.subplot(223)
+plt.xlabel('t')
+plt.ylabel('Total Regret')
+plt.xlim(0, 300)
+
+plt.subplot(224)
+plt.xlabel('t')
+plt.ylabel('Accuracy')
+plt.xlim(0, 300)
+
+plt.legend()
+plt.show()
+
+
+#%%
+
+#Regret_file1 = 'IHDP_Regret_RDC*_edit__' + date + ' ' + time + '.npy'
 PProb_file2 = 'IHDP_PProb_RDC_original++_' + date + ' ' + time + '.npy'
 Regret_file2 = 'IHDP_Regret_RDC_original++_' + date + ' ' + time + '.npy'
 PProb_file3 = 'IHDP_PProb_RDC_original++_' + date + ' ' + time + '.npy'
