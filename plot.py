@@ -87,7 +87,7 @@ plt.show()
 
 # MANUAL
 
-save_dir = './data_folder/vanilla/plot/'
+save_dir = './data_folder/vanilla/plot++/'
 # save_dir = './data_folder/ihdp/'
 
 algs = ['500-10', '100-10', '40-10', 'ivwa-paper', 'ivwa-new']
@@ -135,15 +135,25 @@ for i in range(len(algs)):
 
     ax = plt.subplot(221)
     ax.plot(smooth(pprob), label=algs[i])
+    ax.yaxis.grid(linewidth=0.5)
+    ax.xaxis.grid(linewidth=0.5)
+    # ax.set_yticks(np.arange(0, 1., 0.1))
+    # ax.set_xticks(np.arange(0, max_x_range, 10))
 
     ax = plt.subplot(222)
     ax.plot(smooth(regret), label=algs[i])
+    ax.yaxis.grid(linewidth=0.5)
+    ax.xaxis.grid(linewidth=0.5)
 
     ax = plt.subplot(223)
     ax.plot(smooth(cumregret), label=algs[i])
+    ax.yaxis.grid(linewidth=0.5)
+    ax.xaxis.grid(linewidth=0.5)
 
     ax = plt.subplot(224)
     ax.plot(smooth(accuracy), label=algs[i])
+    ax.yaxis.grid(linewidth=0.5)
+    ax.xaxis.grid(linewidth=0.5)
 
 
 plt.subplot(221)
@@ -160,6 +170,7 @@ plt.subplot(223)
 plt.xlabel('t')
 plt.ylabel('Total Regret')
 plt.xlim(0, 300)
+plt.ylim(0, 20)
 
 plt.subplot(224)
 plt.xlabel('t')
