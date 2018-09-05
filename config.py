@@ -9,13 +9,13 @@ class Config:
 
     def __init__(self):
 
-        self.MODE = 'vanilla'         # Simulate with specified payout rates
-        # self.MODE = 'ihdp'              # Simulate with IHDP data
+        #self.MODE = 'vanilla'         # Simulate with specified payout rates
+        self.MODE = 'ihdp'              # Simulate with IHDP data
 
         # If vanilla:
-        self.USE_RANDOM_DATA = True        # If true, creates obs/exp data and theta for EACH N
+        self.USE_RANDOM_DATA = False        # If true, creates obs/exp data and theta for EACH N
         self.SAVE_LIST = False             # Save random payout and data generated
-        self.USE_SAVED_RANDOM_DATA = True  # Use already saved data
+        self.USE_SAVED_RANDOM_DATA = False  # Use already saved data
 
         self.WINDOWS = False             # Set to True if using Windows OS
 
@@ -42,7 +42,7 @@ class Config:
         #  MABUC run main settings                       #
         # -----------------------------------------------#
         self.T = 150      # Exploration timesteps
-        self.N = 10      # MC repeats to average (if using existing I samples and this
+        self.N = 20      # MC repeats to average (if using existing I samples and this
                         # includes multiple N, this will be multiplied by this)
         self.USE_ORDERED_I_SAMPLES = True  # If false, I appears in order
 
@@ -50,25 +50,9 @@ class Config:
         # self.ALGORITHMS = ['IVWA - TS++', 'IVWA - TS+', 'IVWA - TS',
         #                   'IVWA - paper++', 'IVWA - paper+', 'IVWA - paper']
         # self.ALGORITHMS = ['MCMC++']
-        self.ALGORITHMS = ['MCMC++', 'MCMC+', 'MCMC']
+        self.ALGORITHMS = ['MCMC++']
 
-        # -------------------------------------------- #
-        #  PYMC3 BAYESIAN MABUC SETTINGS               #
-        # -------------------------------------------- #
-        self.USE_MODEL_WITH_CONSTRAINT = False  # Use alpha + beta + theta model
-        self.N_BATCH = 2                    # Batch size for taking data from trace with each MC update of posterior
-        self.TRACE_LENGTH = 600             # Trace length for MCMC
-        self.N_MCMC_CHAINS = 2              # Chain length for MCMC
-        self.USE_PPC_SAMPLES = False        # (UNUSED) Use PPC for posterior point estimate
-        self.N_PPC_SAMPLES = 500            # (UNUSED) How many PPC samples for posterior
-        self.N_TRACE_SAMPLES = 100          # How many of last trace samples to use to get posterior
-        self.ALPHA_HYPER_GAMMA_SD = 100     # Alpha in hyperprior sd gamma(alpha, beta)
-        self.BETA_HYPER_GAMMA_SD = 10       # Beta in hyperprior sd gamma(alpha, beta)
-        self.ALL_TS = True                  # Thompson sample for every t
-        # Been using 0.1, 0.01 / 0.01, 0.001 / 100, 10
-
-        # (10, 0.1), (10, 0.001) DOESN"T EXPLORE ENOUGH AT THE BEGINNING!
-        # LESS INFO PRIOR NEEDED
+        # OR
 
         # Compare Bayesian hyperparameters (set to false if using IVWA)
         # If this is set true, each combination of (a, b) is treated as
@@ -168,6 +152,24 @@ class Config:
         #     self.experimental_successes = None  #
         #     self.experimental_failures = None  #
         #     self.N_data_exp = None  #
+
+        # -------------------------------------------- #
+        #  PYMC3 BAYESIAN MABUC SETTINGS               #
+        # -------------------------------------------- #
+        self.USE_MODEL_WITH_CONSTRAINT = False  # Use alpha + beta + theta model
+        self.N_BATCH = 2                    # Batch size for taking data from trace with each MC update of posterior
+        self.TRACE_LENGTH = 600             # Trace length for MCMC
+        self.N_MCMC_CHAINS = 2              # Chain length for MCMC
+        self.USE_PPC_SAMPLES = False        # (UNUSED) Use PPC for posterior point estimate
+        self.N_PPC_SAMPLES = 500            # (UNUSED) How many PPC samples for posterior
+        self.N_TRACE_SAMPLES = 100          # How many of last trace samples to use to get posterior
+        self.ALPHA_HYPER_GAMMA_SD = 300     # Alpha in hyperprior sd gamma(alpha, beta)
+        self.BETA_HYPER_GAMMA_SD = 10       # Beta in hyperprior sd gamma(alpha, beta)
+        self.ALL_TS = True                  # Thompson sample for every t
+        # Been using 0.1, 0.01 / 0.01, 0.001 / 100, 10
+
+        # (10, 0.1), (10, 0.001) DOESN"T EXPLORE ENOUGH AT THE BEGINNING!
+        # LESS INFO PRIOR NEEDED
 
         # -------------------------------------------- #
         # SEQUENTIAL BAYESIAN SETTINGS                 #
