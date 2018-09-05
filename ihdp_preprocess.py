@@ -16,6 +16,7 @@ plot_traceplot = False
 run_gradient_descent = False
 
 import datetime
+
 print(str(datetime.datetime.now()).split('.')[0])
 
 #%%

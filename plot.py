@@ -191,25 +191,25 @@ algs = ['Bayesian', 'Bayesian2', 'IVWA - paper', 'IVWA - new']
 
 str_PProb = [
 '2018-09-02-23-17-54_N=9_AVE_PProb_MCMC+-40-10.npy',
-'2018-09-02-23-17-54_N=9_AVE_PProb_MCMC+-500-10.npy',
+'2018-09-02-23-32-44_N=9_AVE_PProb_MCMC+-500-10.npy',
 '2018-09-02-21-38-40_N=49_AVE_PProb_IVWA - paper+.npy',
 '2018-09-02-21-38-40_N=49_AVE_PProb_IVWA - TS+.npy']
 
 str_Regret = [
 '2018-09-02-23-17-54_N=9_AVE_Regret_MCMC+-40-10.npy',
-'2018-09-02-23-17-54_N=9_AVE_Regret_MCMC+-500-10.npy',
+'2018-09-02-23-32-44_N=9_AVE_Regret_MCMC+-500-10.npy',
 '2018-09-02-21-38-40_N=49_AVE_Regret_IVWA - paper+.npy',
 '2018-09-02-21-38-40_N=49_AVE_Regret_IVWA - TS+.npy']
 
 str_CumRegret = [
 '2018-09-02-23-17-54_N=9_AVE_CumRegret_MCMC+-40-10.npy',
-'2018-09-02-23-17-54_N=9_AVE_CumRegret_MCMC+-500-10.npy',
+'2018-09-02-23-32-44_N=9_AVE_CumRegret_MCMC+-500-10.npy',
 '2018-09-02-21-38-40_N=49_AVE_CumRegret_IVWA - paper+.npy',
 '2018-09-02-21-38-40_N=49_AVE_CumRegret_IVWA - TS+.npy']
 
 str_Accuracy = [
 '2018-09-02-23-17-54_N=9_AVE_Accuracy_MCMC+-40-10.npy',
-'2018-09-02-23-17-54_N=9_AVE_Accuracy_MCMC+-500-10.npy',
+'2018-09-02-23-32-44_N=9_AVE_Accuracy_MCMC+-500-10.npy',
 '2018-09-02-21-38-40_N=49_AVE_Accuracy_IVWA - paper+.npy',
 '2018-09-02-21-38-40_N=49_AVE_Accuracy_IVWA - TS+.npy']
 
@@ -273,6 +273,30 @@ plt.subplot(224)
 plt.xlabel('t')
 plt.ylabel('Accuracy')
 plt.xlim(0, 300)
+
+plt.legend()
+plt.show()
+
+#%%
+
+#TORIAEZU PLOT
+save_dir = './data_folder/vanilla/plot-rand-N/'
+
+plt.figure()
+
+what_to_plot = 'CumRegret'
+version = '++'
+
+one = np.load(save_dir + '2018-09-05-11-47-51_N=7_AVE_' + what_to_plot + '_MCMC++.npy')
+two = np.load(save_dir + '2018-09-02-19-27-13_N=19_AVE_' + what_to_plot + '_IVWA - TS.npy')
+three = np.load(save_dir + '2018-09-02-19-27-13_N=19_AVE_' + what_to_plot + '_IVWA - paper.npy')
+
+ax = plt.subplot(211)
+ax.plot(smooth(one), label='1')
+ax.plot(smooth(two), label='2')
+ax.plot(smooth(three), label='3')
+
+#plt.ylim(0.4, 0.85)
 
 plt.legend()
 plt.show()

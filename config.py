@@ -9,13 +9,13 @@ class Config:
 
     def __init__(self):
 
-        self.MODE = 'vanilla'         # Simulate with specified payout rates
-        #self.MODE = 'ihdp'              # Simulate with IHDP data
+        # self.MODE = 'vanilla'         # Simulate with specified payout rates
+        self.MODE = 'ihdp'              # Simulate with IHDP data
 
         # If vanilla:
-        self.USE_RANDOM_DATA = True        # If true, creates obs/exp data and theta for EACH N
+        self.USE_RANDOM_DATA = False        # If true, creates obs/exp data and theta for EACH N
         self.SAVE_LIST = False             # Save random payout and data generated
-        self.USE_SAVED_RANDOM_DATA = True  # Use already saved data
+        self.USE_SAVED_RANDOM_DATA = False  # Use already saved data
 
         self.WINDOWS = False             # Set to True if using Windows OS
 
@@ -50,7 +50,7 @@ class Config:
         # self.ALGORITHMS = ['IVWA - TS++', 'IVWA - TS+', 'IVWA - TS',
         #                   'IVWA - paper++', 'IVWA - paper+', 'IVWA - paper']
         # self.ALGORITHMS = ['MCMC++']
-        self.ALGORITHMS = ['MCMC++', 'MCMC+', 'MCMC']
+        self.ALGORITHMS = ['MCMC++', 'MCMC+', 'MCMC+']
 
         # OR
 

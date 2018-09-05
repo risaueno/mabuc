@@ -25,6 +25,32 @@ stamp = stamp.replace(' ','-')
 stamp
 
 #%%
+theta_list = np.load('theta_list.npy')
+intent = np.array([0,2,1,3,2,0,1,2])
+action = np.array([2,0,1,2,2,1,0,3])
+
+th = theta_list[0]
+th
+
+optimal_rewards = np.max(th[:, intent], axis=0)
+
+
+
+for th in theta_list:
+    th[:, intent]
+
+
+#%%
+
+ihdp_payout = np.load('ihdp_payout.npy')
+ihdp_payout.round(2)
+
+ihdp_exp_p = np.load('ihdp_exp_p.npy')
+ihdp_exp_p.round(2)
+
+np.load('ihdp_exp_success.npy') + np.load('ihdp_exp_failure.npy')
+
+np.load('ihdp_obs_success.npy') + np.load('ihdp_obs_failure.npy')
 
 #%%
 
