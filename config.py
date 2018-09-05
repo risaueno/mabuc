@@ -9,8 +9,8 @@ class Config:
 
     def __init__(self):
 
-        # self.MODE = 'vanilla'         # Simulate with specified payout rates
-        self.MODE = 'ihdp'              # Simulate with IHDP data
+        self.MODE = 'vanilla'         # Simulate with specified payout rates
+        # self.MODE = 'ihdp'              # Simulate with IHDP data
 
         # If vanilla:
         self.USE_RANDOM_DATA = False        # If true, creates obs/exp data and theta for EACH N
@@ -50,7 +50,7 @@ class Config:
         # self.ALGORITHMS = ['IVWA - TS++', 'IVWA - TS+', 'IVWA - TS',
         #                   'IVWA - paper++', 'IVWA - paper+', 'IVWA - paper']
         # self.ALGORITHMS = ['MCMC++']
-        self.ALGORITHMS = ['MCMC++', 'MCMC+', 'MCMC+']
+        self.ALGORITHMS = ['MCMC']
 
         # OR
 
@@ -163,7 +163,7 @@ class Config:
         self.USE_PPC_SAMPLES = False        # (UNUSED) Use PPC for posterior point estimate
         self.N_PPC_SAMPLES = 500            # (UNUSED) How many PPC samples for posterior
         self.N_TRACE_SAMPLES = 100          # How many of last trace samples to use to get posterior
-        self.ALPHA_HYPER_GAMMA_SD = 500     # Alpha in hyperprior sd gamma(alpha, beta)
+        self.ALPHA_HYPER_GAMMA_SD = 300     # Alpha in hyperprior sd gamma(alpha, beta)
         self.BETA_HYPER_GAMMA_SD = 10       # Beta in hyperprior sd gamma(alpha, beta)
         self.ALL_TS = True                  # Thompson sample for every t
         # Been using 0.1, 0.01 / 0.01, 0.001 / 100, 10
