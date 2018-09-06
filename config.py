@@ -9,13 +9,13 @@ class Config:
 
     def __init__(self):
 
-        #self.MODE = 'vanilla'         # Simulate with specified payout rates
-        self.MODE = 'ihdp'              # Simulate with IHDP data
+        self.MODE = 'vanilla'         # Simulate with specified payout rates
+        #self.MODE = 'ihdp'              # Simulate with IHDP data
 
         # If vanilla:
-        self.USE_RANDOM_DATA = False        # If true, creates obs/exp data and theta for EACH N
+        self.USE_RANDOM_DATA = True        # If true, creates obs/exp data and theta for EACH N
+        self.USE_SAVED_RANDOM_DATA = True  # Use already saved data
         self.SAVE_LIST = False             # Save random payout and data generated
-        self.USE_SAVED_RANDOM_DATA = False  # Use already saved data
 
         self.WINDOWS = False             # Set to True if using Windows OS
 
@@ -41,13 +41,13 @@ class Config:
         # -----------------------------------------------#
         #  MABUC run main settings                       #
         # -----------------------------------------------#
-        self.T = 150      # Exploration timesteps
+        self.T = 300      # Exploration timesteps
         self.N = 20      # MC repeats to average (if using existing I samples and this
                         # includes multiple N, this will be multiplied by this)
         self.USE_ORDERED_I_SAMPLES = True  # If false, I appears in order
 
         # Available:
-        # self.ALGORITHMS = ['IVWA - TS++', 'IVWA - TS+', 'IVWA - TS',
+        #self.ALGORITHMS = ['IVWA - TS++', 'IVWA - TS+', 'IVWA - TS',
         #                   'IVWA - paper++', 'IVWA - paper+', 'IVWA - paper']
         # self.ALGORITHMS = ['MCMC++']
         self.ALGORITHMS = ['MCMC++']

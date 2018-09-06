@@ -175,8 +175,15 @@ def main():
             AccuracySum[a, :] += AveragePayoutAccuracy
 
             # Save regret for this simulation (N)
-            optimal_rewards = np.max(config.THETA[:, Intent.astype(int)], axis=0)
-            action_rewards = config.THETA[Action.astype(int), Intent.astype(int)]
+            if config.MODE == 'vanilla' and config.USE_RANDOM_DATA:
+                print("corrected theta for regret!")
+                th = theta_list[n]
+                optimal_rewards = np.max(th[:, Intent.astype(int)], axis=0)
+                action_rewards = th[Action.astype(int), Intent.astype(int)]
+            else:
+                optimal_rewards = np.max(config.THETA[:, Intent.astype(int)], axis=0)
+                action_rewards = config.THETA[Action.astype(int), Intent.astype(int)]
+
             Regret = optimal_rewards - action_rewards
             RegretSum[a, :] += Regret
             CumRegret = np.cumsum(optimal_rewards - action_rewards)

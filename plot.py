@@ -277,6 +277,34 @@ plt.xlim(0, 300)
 plt.legend()
 plt.show()
 
+#%% TORIAEZU PLOT
+
+save_dir = './data_folder/ihdp/plot/'
+
+plt.figure()
+
+plots = ['PProb', 'Regret', 'CumRegret', 'Accuracy']
+
+what_to_plot = plots[3]
+
+#one = np.load(save_dir + '2018-09-05-11-56-22_N=14_AVE_' + what_to_plot + '_MCMC++.npy')
+#two = np.load(save_dir + '2018-09-05-11-53-19_N=8_AVE_' + what_to_plot + '_MCMC+.npy')
+one = np.load(save_dir + '2018-09-05-11-59-33_N=8_AVE_' + what_to_plot + '_MCMC.npy')
+
+two = np.load(save_dir + '2018-09-02-19-54-57_N=99_AVE_' + what_to_plot + '_IVWA - TS.npy')
+three = np.load(save_dir + '2018-09-02-19-54-57_N=99_AVE_' + what_to_plot + '_IVWA - paper.npy')
+
+ax = plt.subplot(211)
+ax.plot(smooth(one), label='1')
+ax.plot(smooth(two), label='2')
+ax.plot(smooth(three), label='3')
+
+#plt.ylim(0.4, 0.85)
+plt.xlim(0, 300)
+
+plt.legend()
+plt.show()
+
 #%%
 
 #Regret_file1 = 'IHDP_Regret_RDC*_edit__' + date + ' ' + time + '.npy'
