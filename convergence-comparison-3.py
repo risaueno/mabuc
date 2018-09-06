@@ -25,27 +25,6 @@ stamp = stamp.replace(' ','-')
 stamp
 
 #%%
-theta_list = np.load('theta_list.npy')
-theta_list.shape
-
-data_exp_list = np.load('data_exp_list.npy')
-data_exp_list.shape
-
-data_obs_list = np.load('data_obs_list.npy')
-data_obs_list.shape
-
-theta_list_ = theta_list[12:]
-data_obs_list_ = data_obs_list[12:]
-data_exp_list_ = data_exp_list[12:]
-
-theta_list[12:].shape
-data_obs_list[12:].shape
-data_exp_list[12:].shape
-
-np.save('data_exp_list_', data_exp_list_)
-np.save('data_obs_list_', data_obs_list_)
-np.save('theta_list_', theta_list_)
-
 
 #%%
 
