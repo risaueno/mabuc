@@ -90,9 +90,9 @@ def main():
 
     if config.MODE == 'vanilla' and config.USE_RANDOM_DATA:
         if config.USE_SAVED_RANDOM_DATA:
-            data_exp_list = np.load('data_exp_list.npy')
-            data_obs_list = np.load('data_obs_list.npy')
-            theta_list = np.load('theta_list.npy')
+            data_exp_list = np.load('data_exp_list_.npy')
+            data_obs_list = np.load('data_obs_list_.npy')
+            theta_list = np.load('theta_list_.npy')
             N = len(theta_list)
 
         else:

@@ -41,7 +41,7 @@ class Config:
         # -----------------------------------------------#
         #  MABUC run main settings                       #
         # -----------------------------------------------#
-        self.T = 300      # Exploration timesteps
+        self.T = 150      # Exploration timesteps
         self.N = 20      # MC repeats to average (if using existing I samples and this
                         # includes multiple N, this will be multiplied by this)
         self.USE_ORDERED_I_SAMPLES = True  # If false, I appears in order
@@ -163,7 +163,7 @@ class Config:
         self.USE_PPC_SAMPLES = False        # (UNUSED) Use PPC for posterior point estimate
         self.N_PPC_SAMPLES = 500            # (UNUSED) How many PPC samples for posterior
         self.N_TRACE_SAMPLES = 100          # How many of last trace samples to use to get posterior
-        self.ALPHA_HYPER_GAMMA_SD = 300     # Alpha in hyperprior sd gamma(alpha, beta)
+        self.ALPHA_HYPER_GAMMA_SD = 100     # Alpha in hyperprior sd gamma(alpha, beta)
         self.BETA_HYPER_GAMMA_SD = 10       # Beta in hyperprior sd gamma(alpha, beta)
         self.ALL_TS = True                  # Thompson sample for every t
         # Been using 0.1, 0.01 / 0.01, 0.001 / 100, 10
